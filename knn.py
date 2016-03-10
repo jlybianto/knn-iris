@@ -33,6 +33,7 @@ y = iris.target
 # VISUALIZE DATA
 # ----------------
 
+# Scatterplot of sepal length against sepal width colored by different types.
 plt.figure()
 plt.scatter(x[0:,0], x[:,1], c=y)
 plt.xlabel("Sepal Length (cm)", fontsize=14)
@@ -43,3 +44,18 @@ plt.show()
 # ----------------
 # MODEL DATA
 # ----------------
+
+# Generation for a new data point
+length = []
+for i in enumerate(x):
+	length.append(i[1][0])
+
+width = []
+for j in enumerate(x):
+	width.append(j[1][1])
+
+point = []
+point.append(np.random.uniform(min(length), max(length)))
+point.append(np.random.uniform(min(width), max(width)))
+
+# Calculation of Euclidean distance from generated data point to exisiting points
