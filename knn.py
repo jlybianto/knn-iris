@@ -4,6 +4,8 @@
 
 from sklearn import datasets
 import matplotlib.pyplot as plt
+import numpy as np
+from collections import Counter
 
 # ----------------
 # OBTAIN DATA
@@ -57,5 +59,39 @@ for j in enumerate(x):
 point = []
 point.append(np.random.uniform(min(length), max(length)))
 point.append(np.random.uniform(min(width), max(width)))
+print("Classification Test from Randomized Point: ")
+print("Random Generated Point: " + str(point))
+print("Selected Number of Nearest Neighbors (k): 10")
 
-# Calculation of Euclidean distance from generated data point to exisiting points
+# Calculation of two-dimensional Euclidean distance from generated data point to exisiting points
+distance = [] # Empty list to contain distance and target coordinates
+count = 0 # Count to assign type of target from iris.target
+for n in x:
+	d = np.sqrt((n[0] - point[0]) ** 2 + (n[1] - point[1]) ** 2)
+	distance.append([d, y[count]])
+	count += 1
+
+distance.sort() # Sort calculated distances in ascending order
+top_ten = distance[0:10]
+
+target = []
+for i in top_ten:
+	target.append(i[1])
+
+print("Number of Seritosa Species: " + str(Counter(target)[0]))
+print("Number of Verisicolor Species: " + str(Counter(target)[1]))
+print("Number of Virginica Species: " + str(Counter(target)[2]))
+
+species = ""
+if Counter(target)[0] == Counter(target)[1] or \
+   Counter(target)[1] == Counter(target)[2] or \
+   Counter(target)[0] == Counter(target)[2]:
+   	species = "Cannot be classified"
+elif max(Counter(target)) == 0:
+	species = "Seritosa"
+elif max(Counter(target)) == 1:
+	species = "Versicolor"
+else:
+	species = "Virginica"
+
+print("Classification of Generated Data Point: " + str(species))
