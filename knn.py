@@ -94,3 +94,54 @@ else:
 	species = "Species cannot be determined"
 
 print("Classification of Generated Data Point: " + str(species))
+print("")
+
+# ----------------
+# USER INPUT
+# ----------------
+
+print("Classification Test for an Arbitrary User Input Point: ")
+
+# Define a function that takes in arbitrary user inputs and determine species through model.
+def knn(user_length, user_width, user_k):
+	iris = datasets.load_iris()
+	x = iris.data[:,:2]
+	y = iris.target
+
+	distance = []
+	count = 0
+
+	for n in x:
+		d = np.sqrt((n[0] - user_length) ** 2 + (n[1] - user_width) ** 2)
+		distance.append([d, y[count]])
+		count += 1
+
+	distance.sort() # Sort calculated distances in ascending order
+	top_k = distance[0:user_k]
+
+	target = []
+	for i in top_k:
+		target.append(i[1])
+
+	print("Number of Seritosa Species: " + str(Counter(target)[0]))
+	print("Number of Verisicolor Species: " + str(Counter(target)[1]))
+	print("Number of Virginica Species: " + str(Counter(target)[2]))
+
+	species = ""
+
+	if Counter(target)[0] > Counter(target)[1] and Counter(target)[0] > Counter(target)[2]:
+   		species = "Seritosa"
+	elif Counter(target)[1] > Counter(target)[0] and Counter(target)[1] > Counter(target)[2]:
+   		species = "Versicolor"
+	elif Counter(target)[2] > Counter(target)[0] and Counter(target)[2] > Counter(target)[1]:
+		species = "Virginica"
+	else:
+		species = "Species cannot be determined"
+
+	print("Classification of Arbitrary Input: " + str(species))
+
+# Allow user to input arbitrary sepal length and sepal width for the model to make a prediction.
+user_length = float(raw_input("Input a sepal length (3.00 - 9.00 cm): "))
+user_width = float(raw_input("Input a sepal width (1.00 - 5.00 cm): "))
+user_k = int(raw_input("Input an integer (k) for number of nearest neighbors: "))
+knn(user_length, user_width, user_k)
