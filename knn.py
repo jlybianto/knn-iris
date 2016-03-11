@@ -41,7 +41,7 @@ plt.scatter(x[0:,0], x[:,1], c=y)
 plt.xlabel("Sepal Length (cm)", fontsize=14)
 plt.ylabel("Sepal Width (cm)", fontsize=14)
 plt.title("Scatterplot of Iris Data - Sepal Length vs. Sepal Width", fontsize=16)
-plt.show()
+plt.savefig("sepal-scatterplot.png")
 
 # ----------------
 # MODEL DATA
