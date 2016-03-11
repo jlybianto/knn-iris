@@ -83,15 +83,14 @@ print("Number of Verisicolor Species: " + str(Counter(target)[1]))
 print("Number of Virginica Species: " + str(Counter(target)[2]))
 
 species = ""
-if Counter(target)[0] == Counter(target)[1] or \
-   Counter(target)[1] == Counter(target)[2] or \
-   Counter(target)[0] == Counter(target)[2]:
-   	species = "Cannot be classified"
-elif max(Counter(target)) == 0:
-	species = "Seritosa"
-elif max(Counter(target)) == 1:
-	species = "Versicolor"
-else:
+
+if Counter(target)[0] > Counter(target)[1] and Counter(target)[0] > Counter(target)[2]:
+   	species = "Seritosa"
+elif Counter(target)[1] > Counter(target)[0] and Counter(target)[1] > Counter(target)[2]:
+   	species = "Versicolor"
+elif Counter(target)[2] > Counter(target)[0] and Counter(target)[2] > Counter(target)[1]:
 	species = "Virginica"
+else:
+	species = "Species cannot be determined"
 
 print("Classification of Generated Data Point: " + str(species))
